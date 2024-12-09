@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Palline di Natale</title>
+  <style>
+    body, html, #app {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(0,0,0,0.5) 200%);
+    }
+
+    #app {
+      position: relative;
+      height: 100%;
+      font-family: "Montserrat", serif;
+    }
+
+    .hero {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0 15px;
+    }
+
+    h1, h2 {
+      margin: 0;
+      padding: 0;
+      color: purple;
+      text-transform: uppercase;
+      text-shadow: 0 0 20px rgba(255, 255, 255, 1);
+      line-height: 1.2;
+      user-select: none;
+    }
+
+    h1 {
+      position: relative;
+      z-index: 2;
+      font-size: 60px;
+      font-weight: 700;
+    }
+
+    h2 {
+      font-size: 40px;
+      font-weight: 500;
+    }
+
+    #webgl-canvas {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .buttons {
+      position: fixed;
+      width: 100%;
+      bottom: 15px;
+      z-index: 2;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      font-family: "Georgia", serif;
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 5px;
+      border: 1px solid grey;
+      padding: 8px 12px;
+      font-size: 16px;
+    }
+
+    /* Media Query per smartphone */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 40px;
+      }
+
+      h2 {
+        font-size: 24px;
+      }
+
+      button {
+        font-size: 14px;
+        padding: 6px 10px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 30px;
+      }
+
+      h2 {
+        font-size: 18px;
+      }
+
+      .buttons {
+        gap: 10px;
+      }
+
+      button {
+        font-size: 12px;
+        padding: 5px 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="hero">
+      <h1>Scilla Cariddi</h1>
+      <h1>Rental Boat</h1>
+      <h2>Auguri di Buon Natale</h2>
+    </div>
+    <div class="buttons">
+      <button type="button" id="gravity-btn">Gravità</button>
+      <button type="button" id="colors-btn">Colora</button>
+    </div>
+    <canvas id="webgl-canvas"></canvas>
+  </div>
+  <script type="module">
+    import { Spheres1Background } from 'https://cdn.jsdelivr.net/npm/threejs-components@0.0.5/build/backgrounds/spheres1.cdn.min.js';
+
+    const bg = Spheres1Background(document.getElementById('webgl-canvas'), {
+      count: 300,
+      minSize: 0.3,
+      maxSize: 1,
+      gravity: 0.5
+    });
+
+    document.getElementById('gravity-btn').addEventListener('click', () => {
+      bg.spheres.config.gravity = bg.spheres.config.gravity === 0 ? 1 : 0;
+    });
+
+    document.getElementById('colors-btn').addEventListener('click', () => {
+      bg.spheres.setColors([
+        0xffffff * Math.random(),
+        0xffffff * Math.random(),
+        0xffffff * Math.random()
+      ]);
+    });
+  </script>
+</body>
+</html>
